@@ -301,9 +301,3 @@ else
     mkdir -p $BUILD_DIR/.profile.d
     echo "export PATH=\$HOME/bin:\$PATH" > $BUILD_DIR/.profile.d/wkhtmltopdf-boot.sh
 fi
-
-# RENAME CSS
-CURRENT_EPOCH=$(date +%s)
-echo "mv \$HOME/backZest/web/static/foundry/css/custom.css \$HOME/backZest/web/static/foundry/css/custom_$CURRENT_EPOCH.css" > $BUILD_DIR/.profile.d/lezeste-boot.sh
-echo "sed -i.bak s/custom.css/custom_$CURRENT_EPOCH.css/g \$HOME/backZest/web/flask_templates/pages/main_layout.html" >> $BUILD_DIR/.profile.d/lezeste-boot.sh
-
