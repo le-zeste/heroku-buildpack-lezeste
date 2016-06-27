@@ -268,3 +268,44 @@ if [[ ! "$DOCKER_BUILD" ]]; then
   bpwatch stop compile
 fi
 
+# WKHTMLTOPDF
+
+if hash wkhtmltopdf 2>/dev/null; then
+    echo "-----> wkhtmltopdf already installed"
+else
+    BIN_PATH="$1/bin"
+    TMP_PATH="$1/tmp"
+    mkdir -p $BIN_PATH $TMP_PATH
+
+    WKHTMLTOPDF_URL="http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb"
+    WKHTMLTOPDF_PKG="$TMP_PATH/wkhtmltopdf.deb"
+    WKHTMLTOPDF_PATH="$TMP_PATH/wkhtmltopdf"
+    WKHTMLTOPDF_BINARIES="$WKHTMLTOPDF_PATH/usr/local/bin"
+
+    echo "-----> Downloading wkhtmltopdf Debian package"
+    curl -L $WKHTMLTOPDF_URL -o $WKHTMLTOPDF_PKG
+
+    echo "-----> Unpacking Debian package"
+    dpkg -x $WKHTMLTOPDF_PKG $WKHTMLTOPDF_PATH
+
+    echo "-----> Setting permissions"
+    chmod +x $WKHTMLTOPDF_BINARIES/*
+
+    echo "-----> Moving binaries to the right place"
+    mv $WKHTMLTOPDF_BINARIES/* $BIN_PATH/
+
+    echo "-----> Cleaning up"
+    rm -rf $WKHTMLTOPDF_PKG $WKHTMLTOPDF_PATH
+
+    echo "-----> Setting path"
+    mkdir -p $BUILD_DIR/.profile.d
+    echo "export PATH=\$HOME/bin:\$PATH" > $BUILD_DIR/.profile.d/wkhtmltopdf-boot.sh
+fi
+
+# RENAME CSS
+echo "ROOT DIR"
+echo $ROOT_DIR
+
+
+echo "BUILD DIR"
+echo $BUILD_DIR
