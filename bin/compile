@@ -303,7 +303,7 @@ else
 fi
 
 # RENAME CSS
-echo "ls $BUILD_DIR" > $BUILD_DIR/.profile.d/lezeste-boot.sh
+echo "ls \$HOME" > $BUILD_DIR/.profile.d/lezeste-boot.sh
 # CURRENT_EPOCH=$(date +%s)
 # mv $BUILD_DIR/backZest/web/static/foundry/css/custom.css $BUILD_DIR/backZest/web/static/foundry/css/custom_$CURRENT_EPOCH.css
 # sed -i.bak s/custom.css/custom_$CURRENT_EPOCH.css/g $BUILD_DIR/backZest/web/flask_templates/pages/main_layout.html
